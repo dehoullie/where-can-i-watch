@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { MediaItem, StreamingInfo, Country } from '../types';
-import { getStreamingAvailability } from '../services/geminiService';
 import { getMediaWatchProviders } from '../services/tmdbService';
 import { X, ExternalLink, Loader2, MonitorPlay, AlertCircle, Clapperboard, Search } from 'lucide-react';
 
@@ -17,7 +16,7 @@ export const AvailabilityModal: React.FC<AvailabilityModalProps> = ({ item, coun
   useEffect(() => {
     if (item) {
       setLoading(true);
-      
+
       if (item.mediaType === 'sport') {
         getStreamingAvailability(item.title, country.name, item.mediaType)
           .then(setData)
@@ -45,33 +44,33 @@ export const AvailabilityModal: React.FC<AvailabilityModalProps> = ({ item, coun
   if (!item) return null;
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
       onClick={(e) => {
         // Close if clicking strictly on the backdrop overlay
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div 
+      <div
         className="bg-[#0c0a09] w-full max-w-2xl rounded-2xl border border-white/10 shadow-2xl flex flex-col max-h-[90vh] overflow-hidden"
         onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
       >
-        
+
         {/* Cinematic Banner */}
         <div className="relative h-64 md:h-80 shrink-0">
           {item.backdropPath ? (
-              <img 
-                src={item.backdropPath} 
-                alt={item.title} 
+              <img
+                src={item.backdropPath}
+                alt={item.title}
                 className="w-full h-full object-cover"
               />
           ) : (
               <div className="w-full h-full bg-gradient-to-br from-stone-900 to-stone-950" />
           )}
-          
+
           {/* Gradient Overlays */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#0c0a09] via-transparent to-black/20" />
-          
+
           {/* Title & Location Info */}
           <div className="absolute bottom-6 left-6 right-6">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg">{item.title}</h2>
@@ -81,8 +80,8 @@ export const AvailabilityModal: React.FC<AvailabilityModalProps> = ({ item, coun
             </div>
           </div>
 
-          <button 
-            onClick={onClose} 
+          <button
+            onClick={onClose}
             className="absolute top-4 right-4 p-2 bg-black/40 hover:bg-white/10 rounded-full transition-colors text-white backdrop-blur-md"
             aria-label="Close modal"
           >
@@ -99,7 +98,7 @@ export const AvailabilityModal: React.FC<AvailabilityModalProps> = ({ item, coun
             </div>
           ) : (
             <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                
+
               {/* Summary Text */}
               {data?.description && (
                 <p className="text-stone-400 text-sm leading-relaxed">
@@ -140,10 +139,10 @@ export const AvailabilityModal: React.FC<AvailabilityModalProps> = ({ item, coun
                       </div>
                       <h3 className="text-lg font-bold text-white mb-2">Not streaming yet?</h3>
                       <p className="text-sm text-stone-400 max-w-sm">
-                        No direct streaming matches found for your location. Maybe it's still a hit on the big screen? 🍿 
+                        No direct streaming matches found for your location. Maybe it's still a hit on the big screen? 🍿
                         Time to grab some popcorn and search for a nearby cinema theater!
                       </p>
-                      <button 
+                      <button
                         onClick={() => window.open(`https://www.google.com/search?q=cinema+theaters+near+me+playing+${encodeURIComponent(item.title)}`, '_blank')}
                         className="mt-6 px-6 py-2.5 bg-stone-500 hover:bg-stone-600 text-white rounded-full text-sm font-bold transition-all flex items-center gap-2"
                       >
@@ -160,10 +159,10 @@ export const AvailabilityModal: React.FC<AvailabilityModalProps> = ({ item, coun
                     </h3>
                     <div className="grid grid-cols-1 gap-2">
                         {data.groundingSources.map((source, idx) => (
-                            <a 
-                                key={idx} 
-                                href={source.uri} 
-                                target="_blank" 
+                            <a
+                                key={idx}
+                                href={source.uri}
+                                target="_blank"
                                 rel="noreferrer"
                                 className="flex flex-col p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-stone-500/30 transition-all"
                             >
@@ -174,7 +173,7 @@ export const AvailabilityModal: React.FC<AvailabilityModalProps> = ({ item, coun
                     </div>
                  </div>
               )}
-              
+
             </div>
           )}
         </div>

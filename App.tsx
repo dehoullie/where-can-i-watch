@@ -4,14 +4,14 @@ import { MediaCard } from './components/MediaCard.tsx';
 import { AvailabilityModal } from './components/AvailabilityModal.tsx';
 import { UserSettings, MediaItem, Country, BrowseState, FilterState, Genre, Provider } from './types.ts';
 import { getSettings, saveSettings } from './services/storageService.ts';
-import { getLiveSports, searchSports } from './services/geminiService.ts';
+//import { getLiveSports, searchSports } from './services/geminiService.ts';
 import { getTMDBTrending, searchTMDB, discoverMedia, getGenresList, getWatchProviders } from './services/tmdbService.ts';
 import { Search, Loader2, Film, Tv, Trophy, X, Filter, Check } from 'lucide-react';
 import { FEATURE_FLAGS } from './constants.ts';
 
 export default function App() {
   const [userSettings, setUserSettings] = useState<UserSettings>(getSettings());
-  
+
   const [trendingMovies, setTrendingMovies] = useState<MediaItem[]>([]);
   const [trendingTV, setTrendingTV] = useState<MediaItem[]>([]);
   const [liveSports, setLiveSports] = useState<MediaItem[]>([]);
@@ -20,14 +20,14 @@ export default function App() {
   const [browseState, setBrowseState] = useState<BrowseState>({ active: false, category: 'movie', title: '' });
   const [browseResults, setBrowseResults] = useState<MediaItem[]>([]);
   const [browseLoading, setBrowseLoading] = useState(false);
-  
+
   const [filters, setFilters] = useState<FilterState>({ sort: 'popularity.desc', genreIds: [], providerIds: [] });
   const [availableGenres, setAvailableGenres] = useState<Genre[]>([]);
   const [availableProviders, setAvailableProviders] = useState<Provider[]>([]);
-  
+
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  
+
   const [selectedMedia, setSelectedMedia] = useState<MediaItem | null>(null);
 
   useEffect(() => {
