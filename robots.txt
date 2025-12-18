@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /where_can_i_watch/
+
+Sitemap: https://meustrampos.com.br/sitemap.xml

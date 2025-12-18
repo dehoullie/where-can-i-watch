@@ -1,0 +1,7 @@
+{
+  "name": "Where can I watch?",
+  "description": "Instantly discover where to stream movies, TV series, and live sports in any country with real-time AI-powered search.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

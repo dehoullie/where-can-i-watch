@@ -1,0 +1,6 @@
+/* Estilos base para garantir que o app carregue sem erros de recurso */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #0c0a09;
+}

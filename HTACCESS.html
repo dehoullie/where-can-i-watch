@@ -1,0 +1,36 @@
+# 1. Configurações de Cache e Index
+Options -MultiViews -Indexes
+DirectoryIndex index.html
+
+# 2. Forçar MIME Type correto
+# Navegadores modernos precisam disso para aceitar scripts via fetch/import
+<IfModule mod_mime.c>
+    AddType application/javascript .js
+    AddType application/javascript .ts
+    AddType application/javascript .tsx
+    AddType text/css .css
+</IfModule>
+
+# 3. Cabeçalhos de CORS (Caso o esm.sh precise buscar arquivos locais)
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
+
+# 4. Roteamento SPA inteligente
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Se o arquivo existir, sirva-o
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # NÃO redirecione arquivos de código ou mídia para o index.html
+    # Isso evita que o erro de 404 retorne o HTML da página inicial (causando erro de sintaxe)
+    RewriteCond %{REQUEST_URI} \.(js|css|tsx|ts|png|jpg|jpeg|gif|ico|svg|json|woff|woff2)$ [NC]
+    RewriteRule ^ - [R=404,L]
+
+    # Tudo o que sobrar (rotas amigáveis) vai para o index.html
+    RewriteRule ^ index.html [L]
+</IfModule>
