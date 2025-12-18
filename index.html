@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Where can I watch? - Streaming Guide</title>
     <link rel="stylesheet" href="index.css">
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -39,7 +39,7 @@
     "react": "https://esm.sh/react@19.0.0",
     "react-dom": "https://esm.sh/react-dom@19.0.0",
     "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
-    "@google/genai": "https://esm.sh/@google/genai@1.33.0",
+  
     "lucide-react": "https://esm.sh/lucide-react@0.460.0",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "react/": "https://esm.sh/react@^19.2.3/"
@@ -64,14 +64,14 @@
 </head>
   <body>
     <div id="root"></div>
-    
-    <!-- 
-      O esm.sh/run não deve ser importado via JS. 
-      Ele deve ser carregado como um script de módulo direto. 
+
+    <!--
+      O esm.sh/run não deve ser importado via JS.
+      Ele deve ser carregado como um script de módulo direto.
       Isso faz com que ele procure por scripts type="text/tsx" e os compile.
     -->
     <script type="module" src="https://esm.sh/run"></script>
-    
+
     <script type="text/tsx" src="./index.tsx"></script>
 
     <script>
