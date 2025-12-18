@@ -1,6 +1,6 @@
 import { MediaItem, Provider, Genre, FilterState, StreamingInfo, WatchProvider } from '../types';
 
-const TMDB_ACCESS_TOKEN = process.env.TMDB_TOKEN;
+const TMDB_ACCESS_TOKEN = import.meta.env.VITE_TMDB_ACCESS_TOKEN as string;
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMAGE_BASE = 'https://image.tmdb.org/t/p/w500';
 const BACKDROP_BASE = 'https://image.tmdb.org/t/p/original';
@@ -23,7 +23,7 @@ const fetchGenres = async () => {
       fetch(`${BASE_URL}/genre/movie/list?language=en`, options).then(r => r.json()),
       fetch(`${BASE_URL}/genre/tv/list?language=en`, options).then(r => r.json())
     ]);
-    
+
     [...(movieG.genres || []), ...(tvG.genres || [])].forEach((g: any) => {
       GENRE_CACHE[g.id] = g.name;
     });
@@ -35,10 +35,10 @@ const fetchGenres = async () => {
 
 const mapToMediaItem = (item: any, type: 'movie' | 'tv'): MediaItem => {
   const genreNames = (item.genre_ids || []).map((id: number) => GENRE_CACHE[id]).filter(Boolean);
-  
+
   return {
     id: item.id.toString(),
-    title: item.title || item.name, 
+    title: item.title || item.name,
     originalTitle: item.original_title || item.original_name,
     overview: item.overview,
     posterPath: item.poster_path ? `${IMAGE_BASE}${item.poster_path}` : undefined,
@@ -117,7 +117,7 @@ export const getMediaWatchProviders = async (id: string, type: 'movie' | 'tv', r
         const url = `${BASE_URL}/${type}/${id}?append_to_response=watch/providers`;
         const response = await fetch(url, options);
         const details = await response.json();
-        
+
         const regionData = details['watch/providers']?.results?.[region];
 
         const providers: WatchProvider[] = [];
